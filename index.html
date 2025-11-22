@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Travis Launcher</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1e1e2f;
+      color: #fff;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 220px;
+      background-color: #2c2c3c;
+      padding: 20px;
+    }
+
+    .sidebar h2 {
+      color: #00ffff;
+      margin-bottom: 20px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      margin: 15px 0;
+      cursor: pointer;
+    }
+
+    .main {
+      flex-grow: 1;
+      padding: 30px;
+    }
+
+    .user-info {
+      background-color: #2a2a3a;
+      padding: 20px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .user-info h3 {
+      margin-top: 0;
+    }
+
+    .actions button {
+      margin-right: 15px;
+      padding: 10px 20px;
+      background-color: #00ffff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
+    }
+
+    .news {
+      margin-top: 30px;
+    }
+
+    .news ul {
+      margin-top: 10px;
+    }
+
+    .change-username {
+      margin-top: 15px;
+      background-color: #444;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .change-username button {
+      background-color: #ffcc00;
+      border: none;
+      padding: 8px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h2>Travis</h2>
+    <ul>
+      <li>Accueil</li>
+      <li>Classement</li>
+      <li>Bibliothèque</li>
+      <li>Matchs</li>
+      <li>Donner</li>
+      <li>Aide</li>
+      <li>Téléchargements</li>
+      <li>Paramètres</li>
+    </ul>
+  </div>
+
+  <div class="main">
+    <div class="user-info">
+      <h3>Pseudo : <span id="username">p0lxed</span></h3>
+      <p>V-Bucks : 550</p>
+      <p>Niveau : 17</p>
+      <p>Hype : 2585</p>
+      <div class="change-username">
+        <button onclick="changeUsername()">Changer le pseudo</button>
+        <small>(toutes les 2 semaines)</small>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button onclick="launchGame()">Lancer le jeu</button>
+      <button onclick="claimReward()">Réclamer récompense</button>
+    </div>
+
+    <div class="news">
+      <h4>Actus & Mises à jour</h4>
+      <ul>
+        <li>22/11/25 - Travismares 2025 est là ! 🎃</li>
+        <li>01/09/25 - Mise à jour des serveurs</li>
+        <li>13/08/25 - Nouveau mode lategame</li>
+      </ul>
+    </div>
+  </div>
+
+  <script>
+    const lastChange = localStorage.getItem("lastUsernameChange");
+    const usernameSpan = document.getElementById("username");
+
+    function launchGame() {
+      alert("Lancement du jeu Travis...");
+    }
+
+    function claimReward() {
+      alert("Récompense en cours de récupération...");
+    }
+
+    function changeUsername() {
+      const now = new Date();
+      if (lastChange && (now - new Date(lastChange)) < 14 * 24 * 60 * 60 * 1000) {
+        alert("Tu peux changer ton pseudo toutes les 2 semaines.");
+        return;
+      }
+
+      const newUsername = prompt("Nouveau pseudo :");
+      if (newUsername) {
+        usernameSpan.textContent = newUsername;
+        localStorage.setItem("lastUsernameChange", now.toISOString());
+      }
+    }
+  </script>
+</body>
+</html>
