@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>TRAVIS Launcher</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="sidebar">
+  <h2>TRAVIS</h2>
+  <ul>
+    <li onclick="openTab('home')">🏠 Home</li>
+    <li onclick="openTab('leaderboard')">🏆 Leaderboard</li>
+    <li onclick="openTab('library')">📚 Library</li>
+    <li onclick="openTab('matches')">⚔ Matches</li>
+    <li onclick="openTab('donate')">💎 Donate</li>
+    <li onclick="openTab('help')">❓ Help</li>
+  </ul>
+</div>
+
+<div class="content">
+
+  <div class="top-right">
+    <img id="profilePic" class="profile-pic" src="default.png" onclick="importProfilePic()">
+    <span id="username" onclick="changeUsername()">Player</span>
+  </div>
+
+  <div id="tabContent">
+    <h1>Bienvenue dans Travis Launcher</h1>
+    <p>Sélectionne un onglet à gauche.</p>
+  </div>
+
+  <div class="bottom-buttons">
+    <button id="downloadBtn" onclick="downloadGame()">Télécharger</button>
+    <button id="launchBtn" onclick="toggleLaunch()">Lancer</button>
+  </div>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
+body {
+  margin: 0;
+  background: #0d1b2a;
+  font-family: Arial, sans-serif;
+  color: white;
+}
+
+.sidebar {
+  position: fixed;
+  width: 220px;
+  height: 100%;
+  background: #142d4c;
+  padding: 20px;
+}
+
+.sidebar h2 {
+  text-align: center;
+  color: #6ec6ff;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin-top: 30px;
+}
+
+.sidebar li {
+  padding: 12px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.sidebar li:hover {
+  background: #1b3b5c;
+}
+
+.content {
+  margin-left: 240px;
+  padding: 20px;
+}
+
+.top-right {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.profile-pic {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  margin-right: 10px;
+  border: 2px solid #6ec6ff;
+}
+
+.bottom-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+}
+
+button {
+  padding: 12px 22px;
+  margin-left: 12px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+}
+
+#downloadBtn {
+  background: #1e90ff;
+}
+
+#launchBtn {
+  background: #28a745;
+}function openTab(tab) {
+  document.getElementById("tabContent").innerHTML =
+    `<h1>${tab.toUpperCase()}</h1><p>Contenu de l’onglet ${tab}.</p>`;
+}
+
+function importProfilePic() {
+  alert("Importer une image de profil (fonction à connecter)");
+}
+
+function downloadGame() {
+  alert("Téléchargement en cours...");
+}
+
+let launched = false;
+function toggleLaunch() {
+  launched = !launched;
+  document.getElementById("launchBtn").innerText = launched ? "Fermer" : "Lancer";
+}
+
+function changeUsername() {
+  const lastChange = localStorage.getItem("lastNameChange");
+  const now = Date.now();
+
+  if (lastChange && now - lastChange < 7 * 24 * 60 * 60 * 1000) {
+    alert("Tu peux changer ton pseudo seulement une fois par semaine !");
+    return;
+  }
+
+  const newName = prompt("Nouveau pseudo :");
+  if (newName) {
+    document.getElementById("username").innerText = newName;
+    localStorage.setItem("lastNameChange", now);
+  }
+}
+
